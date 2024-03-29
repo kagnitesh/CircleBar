@@ -159,4 +159,18 @@ extension SHCircleBarController {
             return view.safeAreaInsets.bottom
         } else { return 0 }
     }
+
+     func switchToTab(at index: Int) {
+        guard let tabBar = self.tabBar as? MainTabBar else { return }
+        tabBar.select(itemAt: index, animated: true)
+        shouldSelectOnTabBar = false
+        selectedIndex = index
+        
+        let tabWidth = self.view.bounds.width / CGFloat(self.tabBar.items?.count ?? 4)
+                let circleX = (tabWidth * CGFloat(index)) + (tabWidth / 2) - 30
+                let circleY = self.tabBar.frame.origin.y - 40
+        UIView.animate(withDuration: 0.3) {
+            self.circleView.frame = CGRect(x: (tabWidth * CGFloat(index) + tabWidth / 2 - 30), y: self.tabBar.frame.origin.y - 15, width: 60, height: 60)
+        }
+    }
 }
